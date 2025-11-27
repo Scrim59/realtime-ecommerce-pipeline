@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  spark-master:
+    image: apache/spark:3.5.0
+    container_name: spark-master
+    command: bin/spark-class org.apache.spark.deploy.master.Master
+    environment:
+      - SPARK_MASTER_HOST=spark-master
+    ports:
+      - "7077:7077"
+      - "8080:8080"
+
+  spark-worker:
+    image: apache/spark:3.5.0
+    container_name: spark-worker
+    depends_on:
+      - spark-master
+    command: bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077
+    ports:
+      - "8081:8081"
