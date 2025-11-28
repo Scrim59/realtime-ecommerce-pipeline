@@ -1,121 +1,136 @@
-📊 Real-Time Ecommerce Pipeline
+# 📊 Real-Time E-Commerce Pipeline
 
-Kafka • Spark Structured Streaming • PostgreSQL • Metabase
+**Kafka → Spark Structured Streaming → PostgreSQL → Metabase**
 
-Real-time data engineering project processing e-commerce orders end-to-end:
-data generation → Kafka → Spark streaming transformations → PostgreSQL → analytics dashboard in Metabase.
+End-to-end real-time data engineering pipeline processing synthetic
+e-commerce orders:\
+**data generation → ingestion → transformation → storage → analytics.**
 
-⸻
+------------------------------------------------------------------------
 
-🚀 Architecture Overview
-```text
-+------------------+        +-----------------+        +------------------+
-|  Generator (Py)  |  -->   |     Kafka       |  -->   |   Spark Streaming|
-+------------------+        +-----------------+        +------------------+
-                                                             |
-                                                             v
-                                                    +------------------+
-                                                    |   PostgreSQL     |
-                                                    +------------------+
-                                                             |
-                                                             v
-                                                    +------------------+
-                                                    |    Metabase      |
-                                                    +------------------+
-```
+## 🚀 Architecture Overview
 
-⸻
+    +------------------+      +------------------+      +------------------------+
+    |  Python Generator|  --> |      Kafka       | -->  |   Spark Structured     |
+    |  (Kafka Producer)|      |  (Streams Topic) |      |      Streaming         |
+    +------------------+      +------------------+      +------------------------+
+                                                               |
+                                                               v
+                                                      +------------------+
+                                                      |    PostgreSQL    |
+                                                      +------------------+
+                                                               |
+                                                               v
+                                                      +------------------+
+                                                      |     Metabase     |
+                                                      +------------------+
 
-🧰 Tech Stack
-	•	Python (order generator, Kafka producer)
-	•	Apache Kafka
-	•	Spark Structured Streaming
-	•	PostgreSQL
-	•	Metabase
-	•	Docker Compose
+------------------------------------------------------------------------
 
-⸻
+## 🧰 Tech Stack
 
-📦 Project Structure
+**Python**, Faker, Kafka Producer\
+**Apache Kafka**, Zookeeper\
+**Spark Structured Streaming** (with UPSERT logic via JDBC)\
+**PostgreSQL** (OLTP sink)\
+**Metabase** (real-time dashboard)\
+**Docker Compose**
 
-```text 
-realtime-ecommerce-pipeline/
-│
-├── generator/          # Kafka producer generating fake orders
-├── spark/              # Spark Structured Streaming job
-├── database/           # PostgreSQL init sql, docker config
-├── dashboard/          # Metabase docker-compose.yml
-├── README.md
-└── ...
+------------------------------------------------------------------------
 
-```
+## 📦 Project Structure
 
+    realtime-ecommerce-pipeline/
+    │
+    ├── generator/          # Kafka producer generating fake orders
+	├── kafka/              # Kafka & Zookeeper docker-compose config
+    ├── spark/              # Spark Structured Streaming transformation job
+    ├── database/           # PostgreSQL init + Docker config
+    ├── dashboard/          # Metabase docker-compose
+    ├── README.md
+    └── ...
 
-⸻
+------------------------------------------------------------------------
 
-🔧 How to Run Locally
+## 🔧 How to Run Locally
 
-1️⃣ Start Kafka, Zookeeper, and PostgreSQL
+### 1️⃣ Start infrastructure (Kafka, Zookeeper, PostgreSQL)
 
-``bash
+``` bash
 docker compose -f docker-compose.yml up -d
 ```
-2️⃣ Start the order generator
 
-```bash
+### 2️⃣ Start the order generator
+
+``` bash
 cd generator
 python generate_orders.py
 ```
-3️⃣ Start Spark streaming job
 
-```bash
+### 3️⃣ Start Spark Streaming
+
+``` bash
 cd spark
 python stream_orders.py
 ```
 
-4️⃣ Run Metabase
+### 4️⃣ Launch Metabase
 
-```bash
+``` bash
 cd dashboard
 docker compose up -d
 ```
-Access Metabase at:
-http://localhost:3000
 
+Metabase → http://localhost:3000
 
-⸻
-📈 Dashboard (Screenshots)
+------------------------------------------------------------------------
 
-Metabase runs locally in one command, but screenshots are provided.
+## 📈 Dashboard (Example)
 
-![dashboard](dashboard/dashboard.png)
+Real-time dashboard built in Metabase, powered by continuously updated
+PostgreSQL tables.
 
-⸻
-🔥 Features
+> 📌 *Include the screenshot below in your repo:*\
+> `dashboard/dashboard.png`
 
-✔ Real-time ingestion using Kafka
-✔ Nested JSON schema (customer + items)
-✔ Flattening & exploding arrays in Spark
-✔ Writing to PostgreSQL with UPSERT logic
-✔ Real-time analytics dashboard in Metabase
-✔ Fully reproducible setup with Docker
+![Dashboard](dashboard/dashboard.png)
 
-⸻
+Contains:\
+- Orders per hour\
+- Revenue by category\
+- AOV (today)\
+- Returning customer rate\
+- Orders by payment method\
+- Orders by channel\
+- Orders by country (map)\
+- Price vs quantity scatter
 
-📬 Notes.
+------------------------------------------------------------------------
 
-This project demonstrates:
-	•	Real-time streaming architecture
-	•	Handling nested JSON data
-	•	OLTP → OLAP pipeline
-	•	Dashboard creation
-	•	Production-style Spark & SQL logic
-	•	Deduplication and UPSERT handling
+## 🔥 Features
 
-Everything runs locally in ~3 minutes.
+✔ Real-time event ingestion using Kafka\
+✔ Nested JSON schema with `customer` + `items[]`\
+✔ Spark flattening, exploding, and transformations\
+✔ UPSERT logic (customers, orders, order_items)\
+✔ PostgreSQL as streaming sink\
+✔ Metabase dashboard updating in near-real-time\
+✔ Fully reproducible with Docker
 
-⸻
+------------------------------------------------------------------------
 
-👤 Author
+## 📬 What This Project Demonstrates
 
-Michał Lipa
+-   Modern streaming architecture (Kafka → Spark → SQL)\
+-   Building a real real-time data pipeline from scratch\
+-   JSON normalization and deduplication challenges\
+-   End-to-end ELT for analytics\
+-   Hands-on SQL, Python, Spark, and data modeling
+
+Everything spins up **locally in a few minutes**.
+
+------------------------------------------------------------------------
+
+## 👤 Author
+
+**Michał Lipa**
