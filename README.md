@@ -90,19 +90,19 @@ Metabase → http://localhost:3000
 Real-time dashboard built in Metabase, powered by continuously updated
 PostgreSQL tables.
 
-> 📌 *Include the screenshot below in your repo:*\
+> 📌 
 > `dashboard/dashboard.png`
 
 ![Dashboard](dashboard/dashboard.png)
 
-Contains:\
-- Orders per hour\
-- Revenue by category\
-- AOV (today)\
-- Returning customer rate\
-- Orders by payment method\
-- Orders by channel\
-- Orders by country (map)\
+Contains:
+- Orders per hour
+- Revenue by category
+- AOV (today)
+- Returning customer rate
+- Orders by payment method
+- Orders by channel
+- Orders by country (map)
 - Price vs quantity scatter
 
 ------------------------------------------------------------------------
