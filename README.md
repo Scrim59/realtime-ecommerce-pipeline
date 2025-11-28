@@ -86,10 +86,10 @@ http://localhost:3000
 ⸻
 📈 Dashboard (Screenshots)
 
-Metabase runs locally in one command, but screenshots are provided.
+Metabase runs locally in one command, but screenshots are provided for recruiters.
 
-![dashboard](dashboard/dashboard.png)
-
+1. Revenue by Category (Last 60 Minutes)
+2. Orders per Minute
 ⸻
 🔥 Features
 
@@ -102,7 +102,7 @@ Metabase runs locally in one command, but screenshots are provided.
 
 ⸻
 
-📬 Notes
+📬 Notes for Recruiters
 
 This project demonstrates:
 	•	Real-time streaming architecture
@@ -119,4 +119,3 @@ Everything runs locally in ~3 minutes.
 👤 Author
 
 Michał Lipa
-
